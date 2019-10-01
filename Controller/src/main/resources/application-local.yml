@@ -1,0 +1,46 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: comet
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:45432/comet
+    username: comet_app
+    password: app_password
+
+  flyway:
+    schemas: comet
+    user: comet_admin
+    password: admin_password
+security:
+  jwt:
+    uri: ${zuul.routes.auth-service.path}
+    header: Authorization
+    prefix: Bearer
+    expiration: {24*600*60}
+    secret: JwtSecretKey
+app:
+  proxy:
+    url: ${PROXY_API_URL:https://gsafinearts.pbs.gsa.gov/}
+    authorization: ${PROXY_API_AUTH:null}
+  settings:
+    feature-flags:
+      personas-enabled: ${FF_ENABLE_PERSONAS:true}
+    personas: user@email.com
+    default-pagination-size: ${PAGINATION_SIZE:10}
+    max-pagination-size: ${PAGINATION_MAX:1000}

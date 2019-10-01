@@ -1,0 +1,2 @@
+-- Create temporary user persona so team can continue working. Remove and replace with identified personas during Sprint 0.
+insert into app_user(email, password, first_name, last_name, roles) values('user@email.com', '$2a$10$b6oBFXdqt6sWQsX1vV1Uge/qeJ6UUFicTy7.KhatUywOEGMCe6ggS', 'Andrew', 'Johnson', 'ROLE_USER');
